@@ -253,7 +253,7 @@ class All extends SocketBase {
 
     if (code === 0) {
       this.mod.visible = false
-    } else {
+    } else if (code !== 101) {
       this.mod.error.summary = err.summary
       this.mod.error.detail = err.detail
     }
@@ -275,7 +275,7 @@ class All extends SocketBase {
   onDelete (code, err, data) {
     if (code === 0) {
       this.message('删除节点成功', 'success')
-    } else {
+    } else if (code !== 101) {
       this.error(err)
     }
   }
@@ -293,7 +293,7 @@ class All extends SocketBase {
     let items = []
     if (code === 0) {
       items = data
-    } else {
+    } else if (code !== 101) {
       this.info.error.summary = err.summary
       this.info.error.detail = err.detail
     }

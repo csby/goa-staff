@@ -1,6 +1,6 @@
 const app = {
-  guid: '4D29EA5F748C4CFDA37434CE76A5E788',
-  title: '后台管理'
+  guid: 'D8C789C9ECF680A5B336040245028DFA',
+  title: '办公系统'
 }
 
 const api = {
@@ -10,7 +10,7 @@ const api = {
 
 const web = {
   dev: '/',
-  pro: '/opt/'
+  pro: '/staff/'
 }
 
 module.exports = {

@@ -1,6 +1,6 @@
 <template>
   <el-table v-loading="isSearching"
-            aelement-loading-text="加载中..."
+            element-loading-text="加载中..."
             element-loading-spinner="el-icon-loading"
             :data="items"
             :border="border"

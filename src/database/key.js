@@ -1,4 +1,4 @@
-const prefix = 'opt'
+const prefix = 'staff'
 const clearKeys = []
 
 const keys = {
@@ -17,7 +17,9 @@ const keys = {
   // 自动登录: bool
   autoLogin: key('autoLogin', true),
   // 记住账号: bool
-  rememberPassword: key('rememberPassword', true)
+  rememberPassword: key('rememberPassword', true),
+  // 角色: number (1-管理员)
+  role: key('role')
 }
 
 function key (v, reserved = false) {

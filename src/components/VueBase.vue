@@ -2,8 +2,32 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 
-@Component
+@Component({
+  props: {
+    elementHeight: {
+      type: Number,
+      default: 0
+    }
+  },
+  watch: {
+    elementHeight: {
+      handler: 'onElementHeightChanged'
+    }
+  }
+})
 class VueBase extends Vue {
+  get userRole () {
+    const role = this.$db.get(this.$db.keys.role)
+    if (role) {
+      return role
+    }
+
+    return 0
+  }
+
+  onElementHeightChanged (v) {
+  }
+
   isNullOrEmpty (val) {
     if (val === undefined || val === null || val === '' || val === '\u003cnil\u003e') {
       return true

@@ -218,7 +218,7 @@ class Connection extends SocketBase {
     let items = []
     if (code === 0) {
       items = data
-    } else {
+    } else if (code !== 101) {
       this.info.error.summary = err.summary
       this.info.error.detail = err.detail
     }

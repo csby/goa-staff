@@ -1,17 +1,115 @@
 const uri = {
   // 获取获取验证码
-  getCaptcha: '/opt.api/captcha',
+  getCaptcha: '/staff.api/auth/ad/captcha',
   // 用户登录
-  login: '/opt.api/login',
+  login: '/staff.api/auth/ad/login',
   // 退出登录
-  logout: '/opt.api/logout',
+  logout: '/staff.api/auth/ad/logout',
   // 获取登录账号
-  getLoginAccount: '/opt.api/login/account',
+  getLoginAccount: '/staff.api/user/login/account',
   // 获取在线用户
   getOnlineUsers: '/opt.api/online/users',
 
   // 通知订阅
-  websocketNotify: '/opt.api/websocket/notify',
+  websocketNotify: '/staff.api/user/login/notify',
+
+  // 域控-用户
+  // 新建用户
+  adUserAccountCreate: '/staff.api/ad/user/account/create',
+  // 重置密码
+  adUserAccountPasswordReset: '/staff.api/ad/user/account/password/reset',
+  // 修改密码
+  adUserAccountPasswordChange: '/staff.api/ad/user/account/password/change',
+  // 获取帐号列表
+  adUserAccountList: '/staff.api/ad/user/account/list',
+  // 获取帐号树
+  adUserAccountTree: '/staff.api/ad/user/account/tree',
+  // 获取组织单位列表
+  adUserOrgUnitList: '/staff.api/ad/user/org/unit/list',
+  // 获取下属列表
+  adUserSubordinateList: '/staff.api/ad/user/subordinate/list',
+  // 获取VPN启用状态
+  adUserVpnEnableGet: '/staff.api/ad/user/vpn/enable/get',
+  // 设置VPN启用状态
+  adUserVpnEnableSet: '/staff.api/ad/user/vpn/enable/set',
+  // 获取VPN用户列表
+  adUserVpnEnableList: '/staff.api/ad/user/vpn/enable/list',
+
+  // 域控-组
+  // 获取用户列表
+  adGroupUserList: '/staff.api/ad/group/user/list',
+  // 获取角色组列表
+  adGroupRoleList: '/staff.api/ad/group/role/list',
+  // 添加组成员
+  adGroupMemberAdd: '/staff.api/ad/group/member/add',
+  // 移除组成员
+  adGroupMemberRemove: '/staff.api/ad/group/member/remove',
+
+  // 域控-服务器
+  // 获取服务器列表
+  adServerList: '/staff.api/ad/server/list',
+  // 添加服务器
+  adServerAdd: '/staff.api/ad/server/add',
+
+  // 资源-域控-共享目录
+  // 获取共享目录列表
+  adShareList: '/staff.api/ad/share/list',
+  // 添加共享目录
+  adShareAdd: '/staff.api/ad/share/add',
+
+  // 资源-SVN-存储库
+  // 新建存储库
+  svnRepositoryAdd: '/staff.api/svn/repository/add',
+  // 获取存储库列表
+  svnRepositoryList: '/staff.api/svn/repository/list',
+  // 获取文件夹列表
+  svnFolderList: '/staff.api/svn/folder/list',
+  // 获取角色组列表
+  svnGroupRoleList: '/staff.api/svn/group/role/list',
+  // 获取当前登录用户权限列表
+  svnPermissionUserList: '/staff.api/svn/permission/user/list',
+  // 获取项目访问权限列表
+  svnPermissionItemList: '/staff.api/svn/permission/item/list',
+  // 添加项目访问权限
+  svnPermissionItemAdd: '/staff.api/svn/permission/item/add',
+  // 修改项目访问权限
+  svnPermissionItemMod: '/staff.api/svn/permission/item/mod',
+  // 删除项目访问权限
+  svnPermissionItemDel: '/staff.api/svn/permission/item/del',
+
+  // 邮件-收件人
+  // 获取阻止列表(分页)
+  mailReceiverBlockAddressPage: '/staff.api/mail/receiver/block/address/page',
+  // 添加阻止地址
+  mailReceiverBlockAddressAdd: '/staff.api/mail/receiver/block/address/add',
+  // 删除阻止地址
+  mailReceiverBlockAddressDel: '/staff.api/mail/receiver/block/address/del',
+
+  // 邮件-发件人
+  // 获取阻止列表(分页)
+  mailSenderBlockAddressPage: '/staff.api/mail/sender/block/address/page',
+  // 添加阻止地址
+  mailSenderBlockAddressAdd: '/staff.api/mail/sender/block/address/add',
+  // 删除阻止地址
+  mailSenderBlockAddressDel: '/staff.api/mail/sender/block/address/del',
+
+  // 邮件-发送IP
+  // 获取阻止列表(分页)
+  mailSenderBlockIpPage: '/staff.api/mail/sender/block/ip/page',
+
+  // DHCP-筛选器
+  // 获取筛选器列表
+  dhcpFilterList: '/staff.api/dhcp/filter/list',
+  // 添加筛选器
+  dhcpFilterAdd: '/staff.api/dhcp/filter/add',
+  // 删除筛选器
+  dhcpFilterDel: '/staff.api/dhcp/filter/del',
+  // 修改筛选器
+  dhcpFilterMod: '/staff.api/dhcp/filter/mod',
+
+  // DHCP-地址租用
+  // 获取地址租用列表
+  dhcpLeaseList: '/staff.api/dhcp/lease/list',
 
   // 系统角色
   // 获取服务角色

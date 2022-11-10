@@ -16,6 +16,7 @@ import JsEncrypt from 'jsencrypt/bin/jsencrypt'
 })
 class LoginBase extends VueBase {
   frontVersion = Version.version
+  errCode = 0
   errSummary = ''
   errDetail = ''
   captchaLength = 5
@@ -36,6 +37,7 @@ class LoginBase extends VueBase {
   firstGetedCaptcha = false;
 
   onInputChanged () {
+    this.errCode = 0
     this.errSummary = ''
     this.errDetail = ''
   }
@@ -132,6 +134,7 @@ class LoginBase extends VueBase {
 
   onLogin (code, err, data) {
     this.logining = false
+    this.errCode = code
     this.errSummary = ''
     this.errDetail = ''
     if (code === 0) {
@@ -177,6 +180,7 @@ class LoginBase extends VueBase {
       encryption: pwdType
     }
 
+    this.errCode = 0
     this.errSummary = ''
     this.errDetail = ''
     this.logining = true

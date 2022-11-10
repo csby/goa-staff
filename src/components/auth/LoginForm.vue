@@ -56,7 +56,7 @@
     </tr>
     <tr>
       <td colspan="2">
-        <Error :summary="errSummary" :detail="errDetail"/>
+        <Error :code="errCode" :summary="errSummary" :detail="errDetail"/>
       </td>
     </tr>
     <tr>
@@ -92,12 +92,14 @@ class LoginForm extends LoginBase {
 
   onPrelogin (account, password, captcha) {
     if (this.isNullOrEmpty(account)) {
+      this.errCode = 7
       this.errSummary = '账号不能为空'
       this.$refs.account.focus()
       return false
     }
 
     if (this.isNullOrEmpty(password)) {
+      this.errCode = 7
       this.errSummary = '密码不能为空'
       this.$refs.password.focus()
       return false
@@ -105,6 +107,7 @@ class LoginForm extends LoginBase {
 
     if (this.captchaRequired) {
       if (this.isNullOrEmpty(captcha)) {
+        this.errCode = 7
         this.errSummary = '验证码不能为空'
         this.$refs.captcha.focus()
         return false

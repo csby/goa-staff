@@ -1,16 +1,19 @@
 <template>
   <el-container>
     <el-header height="auto" ref="top">
-      <Header />
+      <topHeader v-model="menu.currentItem" :menus="menu.items">
+        <div>
+          <loginUser v-if="isAuthorized" />
+          <div v-else class="button" @click="toLoginPage">
+            <span >登 录</span>
+          </div>
+        </div>
+
+      </topHeader>
     </el-header>
-    <el-container>
-      <el-aside width="auto" :style="mainStyle">
-        <Navigation :min-height="mainHeight"/>
-      </el-aside>
-      <el-main :style="mainStyle">
-        <router-view />
-      </el-main>
-    </el-container>
+    <el-main :style="mainStyle">
+      <router-view :element-height="mainHeight" @changeIndex="onMenuIndexChanged"/>
+    </el-main>
   </el-container>
 </template>
 
@@ -18,16 +21,42 @@
 // @ is an alias to /src
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import Header from '@/components/nav/Header'
-import Navigation from '@/components/nav/Catalog'
+import TopHeader from '@/components/nav/head/Index'
+import LoginUser from '@/components/auth/LoginUser'
 
 @Component({
   components: {
-    Header,
-    Navigation
+    topHeader: TopHeader,
+    loginUser: LoginUser
   }
 })
 class Home extends Vue {
+  menu = {
+    currentItem: '/',
+    items: [
+      {
+        title: '主页',
+        index: '/'
+      },
+      {
+        title: '公共资源',
+        index: '/resource/share'
+      },
+      {
+        title: '无线设备',
+        index: '/wireless/filter'
+      },
+      {
+        title: 'VPN',
+        index: '/vpn/pptp'
+      },
+      {
+        title: '安全',
+        index: '/security/account'
+      }
+    ]
+  }
+
   mainHeight = 0
 
   get mainStyle () {
@@ -36,6 +65,26 @@ class Home extends Vue {
       'min-height': minHeight,
       'max-height': minHeight
     }
+  }
+
+  get isAuthorized () {
+    return this.$db.authorized()
+  }
+
+  toLoginPage () {
+    this.$router.push({ path: '/login' })
+  }
+
+  getMenuItem (path) {
+    const c = this.menu.items.length
+    for (let i = c - 1; i >= 0; i--) {
+      const item = this.menu.items[i]
+      if (item.index === path) {
+        return item
+      }
+    }
+
+    return null
   }
 
   onSizeChanged () {
@@ -57,6 +106,23 @@ class Home extends Vue {
     this.mainHeight = clientHeight - topHeight - marginHeight - paddingHeight
   }
 
+  onMenuIndexChanged (val) {
+    const matchedItems = this.$route.matched
+    if (matchedItems) {
+      const c = matchedItems.length
+      for (let i = c - 1; i >= 0; i--) {
+        const matched = matchedItems[i]
+        const item = this.getMenuItem(matched.path)
+        if (item) {
+          this.menu.currentItem = item.index
+          return
+        }
+      }
+    }
+
+    this.menu.currentItem = val
+  }
+
   mounted () {
     window.addEventListener('resize', this.onSizeChanged)
     this.onSizeChanged()
@@ -71,21 +137,20 @@ export default Home
 </script>
 
 <style scoped>
-.el-container {
-  padding: 0;
-}
+  .el-container, .el-header, .el-main  {
+    padding: 0;
+  }
 
-.el-header {
-  background-color: #0078D7;
-  padding: 0;
-  color: white;
-}
+  .el-header {
+    background-color: #222222;
+    color: #999999;
+  }
 
-.el-aside {
-  padding: 0;
-}
-
-.el-main {
-  padding: 0;
-}
+  .button {
+    cursor: pointer;
+    padding: 0px 2px;
+  }
+  .button :hover {
+    color: white;
+  }
 </style>

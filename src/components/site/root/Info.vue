@@ -91,7 +91,7 @@ class Info extends SocketBase {
     this.loading = false
     if (code === 0) {
       this.infos = data
-    } else {
+    } else if (code !== 101) {
       this.infos = []
     }
   }

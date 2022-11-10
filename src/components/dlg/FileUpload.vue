@@ -30,7 +30,7 @@
                    v-if="uploadProgressVisible"
                    :percentage="percentCompleted"
                    :color="uploadColor"/>
-      <error-message class="content" :summary="errSummary" :detail="errDetail" :holder="false"/>
+      <error-message class="content" :code="errCode" :summary="errSummary" :detail="errDetail"/>
       <div>
         <span class="msg-status">{{statusMsg}}</span>
       </div>
@@ -109,6 +109,7 @@ import ErrorMessage from '@/components/Error'
   }
 })
 class FileUpload extends VueBase {
+  errCode = 0
   errSummary = ''
   errDetail = ''
   statusMsg = ''
@@ -134,6 +135,7 @@ class FileUpload extends VueBase {
     this.visible = val
     if (!val) {
       this.selectedFile = ''
+      this.errCode = 0
       this.errSummary = ''
       this.errDetail = ''
       this.statusMsg = ''
@@ -162,13 +164,15 @@ class FileUpload extends VueBase {
   }
 
   onUploadedFile (code, err, data) {
+    this.errCode = code
+
     if (code === 0) {
       this.uploadColor = this.uploadColors.success
       this.statusMsg = '上传完成， 发布成功'
       this.$nextTick(function () {
         this.$emit('onUploaded')
       })
-    } else {
+    } else if (code !== 101) {
       this.statusMsg = ''
       this.errSummary = err.summary
       this.errDetail = err.detail
@@ -180,6 +184,7 @@ class FileUpload extends VueBase {
   uploadFile () {
     this.uploadProgressVisible = false
     if (this.selectedFile === '') {
+      this.errCode = 7
       this.errSummary = '请选择文件'
       this.$refs.inputFile.select()
       return
@@ -188,6 +193,7 @@ class FileUpload extends VueBase {
     if (this.preUpload) {
       const error = this.preUpload()
       if (this.isNotNullOrEmpty(error)) {
+        this.errCode = 7
         this.errSummary = error
         return
       }
@@ -214,6 +220,7 @@ class FileUpload extends VueBase {
     this.uploadProgressVisible = true
     this.uploading = true
     this.statusMsg = '正在上传...'
+    this.errCode = 0
     this.errSummary = ''
     this.errDetail = ''
     this.upload(uri, formData, this.onUploadedFile, this.onUploadingFile)

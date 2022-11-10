@@ -1,13 +1,9 @@
 <template>
-  <div class="row">
-        <span class="msg">
-            <span class="msg">{{summary}}</span>
-            <span v-if="holder">&nbsp;</span>
-        </span>
-    <el-popover trigger="click" placement="top-end" title="错误详细信息" :content="detail" v-show="detailVisible">
-      <el-button slot="reference" type="text" icon="el-icon-question" style="padding: 0px 1px 0px 5px;" />
-    </el-popover>
-  </div>
+  <el-alert v-show="code !== 0"
+            type="error"
+            :closable="false"
+            :title="summary"
+            :description="detail" />
 </template>
 
 <script>
@@ -24,38 +20,17 @@ import Component from 'vue-class-component'
       type: String,
       default: ''
     },
-    holder: {
-      type: Boolean,
-      default: true
+    code: {
+      type: Number,
+      default: 0
     }
   }
 })
 class Error extends Vue {
-  get detailVisible () {
-    if (this.detail === undefined ||
-      this.detail === null ||
-      this.detail === '' ||
-      this.detail === '\u003cnil\u003e') {
-      return false
-    }
-
-    return true
-  }
 }
 
 export default Error
 </script>
 
 <style scoped>
-row {
-  display: flex;
-  align-items: center;
-  padding: 0px;
-  margin: 0px;
-}
-
-.msg {
-  flex: 1;
-  color: red;
-}
 </style>

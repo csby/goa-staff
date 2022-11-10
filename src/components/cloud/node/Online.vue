@@ -103,7 +103,7 @@ class Online extends SocketBase {
         }
         items.push(item)
       }
-    } else {
+    } else if (code !== 101) {
       this.info.error.summary = err.summary
       this.info.error.detail = err.detail
     }

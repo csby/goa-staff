@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
-import Dashboard from '@/views/authorized/Dashboard'
 
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push (location) {
@@ -31,22 +30,102 @@ const routes = [
   {
     path: '/',
     component: Home,
-    beforeEnter: function (to, from, next) {
-      const authorized = Vue.prototype.$db.authorized()
-      if (authorized) {
-        next(true)
-      } else {
-        next('/login')
-      }
-    },
     children: [
       {
         path: '',
-        component: Dashboard
+        component: () => import('../views/Public')
       },
       {
-        path: '/cloud/node',
-        component: () => import('../views/authorized/cloud/node/Index')
+        path: '/resource/server',
+        component: () => import('../views/authorized/resource/Index'),
+        beforeEnter: function (to, from, next) {
+          const authorized = Vue.prototype.$db.authorized()
+          if (authorized) {
+            next(true)
+          } else {
+            next('/login')
+          }
+        },
+        children: [
+          {
+            path: '',
+            component: () => import('../views/authorized/resource/server/Index')
+          },
+          {
+            path: '/resource/share',
+            component: () => import('../views/authorized/resource/share/Index')
+          },
+          {
+            path: '/resource/svn',
+            component: () => import('../views/authorized/resource/svn/Index')
+          }
+        ]
+      },
+      {
+        path: '/wireless/filter',
+        component: () => import('../views/authorized/wireless/Index'),
+        beforeEnter: function (to, from, next) {
+          const authorized = Vue.prototype.$db.authorized()
+          if (authorized) {
+            next(true)
+          } else {
+            next('/login')
+          }
+        },
+        children: [
+          {
+            path: '',
+            component: () => import('../views/authorized/wireless/AddressFilter')
+          },
+          {
+            path: '/wireless/lease',
+            component: () => import('../views/authorized/wireless/AddressLease')
+          }
+        ]
+      },
+      {
+        path: '/security/account',
+        component: () => import('../views/authorized/security/Index'),
+        beforeEnter: function (to, from, next) {
+          const authorized = Vue.prototype.$db.authorized()
+          if (authorized) {
+            next(true)
+          } else {
+            next('/login')
+          }
+        },
+        children: [
+          {
+            path: '',
+            component: () => import('../views/authorized/security/account/Index')
+          },
+          {
+            path: '/security/mail',
+            component: () => import('../views/authorized/security/mail/Index')
+          }
+        ]
+      },
+      {
+        path: '/vpn/pptp',
+        component: () => import('../views/authorized/vpn/Index'),
+        beforeEnter: function (to, from, next) {
+          const authorized = Vue.prototype.$db.authorized()
+          if (authorized) {
+            next(true)
+          } else {
+            next('/login')
+          }
+        },
+        children: [
+          {
+            path: '',
+            component: () => import('../views/authorized/vpn/pptp/Index')
+          },
+          {
+            path: '/vpn/openvpn',
+            component: () => import('../views/authorized/vpn/openvpn/Index')
+          }
+        ]
       },
       {
         path: '/cloud/fwd',

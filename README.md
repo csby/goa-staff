@@ -1,4 +1,4 @@
-# gwsf-opt
+# goa-staff
 
 ## Project setup
 ```

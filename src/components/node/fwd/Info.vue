@@ -241,7 +241,7 @@ class Info extends SocketBase {
     if (code === 0) {
       this.doGetInfo()
       this.message('删除成功', 'success')
-    } else {
+    } else if (code !== 101) {
       this.error(err)
     }
   }
@@ -271,7 +271,7 @@ class Info extends SocketBase {
 
     if (code === 0) {
       this.doGetEnableState()
-    } else {
+    } else if (code !== 101) {
       this.act.enable.error.summary = err.summary
       this.act.enable.error.detail = err.detail
       this.error(err)
@@ -309,7 +309,7 @@ class Info extends SocketBase {
 
     if (code === 0) {
       this.doGetRunningState()
-    } else {
+    } else if (code !== 101) {
       this.act.running.error.summary = err.summary
       this.act.running.error.detail = err.detail
       this.error(err)
@@ -332,7 +332,7 @@ class Info extends SocketBase {
 
     if (code === 0) {
       this.doGetRunningState()
-    } else {
+    } else if (code !== 101) {
       this.act.running.error.summary = err.summary
       this.act.running.error.detail = err.detail
       this.error(err)
@@ -355,7 +355,7 @@ class Info extends SocketBase {
 
     if (code === 0) {
       this.info.items = data
-    } else {
+    } else if (code !== 101) {
       this.info.items = []
       this.info.error.summary = err.summary
       this.info.error.detail = err.detail

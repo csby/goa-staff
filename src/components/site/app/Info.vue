@@ -131,7 +131,7 @@ class Info extends SocketBase {
       this.info.deployTime = data.deployTime === null ? '' : data.deployTime
       this.info.downloadTitle = data.downloadTitle
       this.info.downloadUrl = data.downloadUrl
-    } else {
+    } else if (code !== 101) {
       this.info.url = ''
       this.info.name = ''
       this.info.guid = ''
